@@ -68,6 +68,14 @@ document.querySelector("#backSpace").addEventListener('click', function(){
     document.getElementById("calculatorWindow").innerHTML = mainWindow.calculatorNumber.join("")
     })
 
+document.querySelector("#reset").addEventListener('click', function(){
+    mainWindow.previousNumber =[]
+    mainWindow.newNumber = []
+    mainWindow.calculatorNumber = []
+    mainWindow.operation = "nil"
+    document.getElementById("calculatorWindow").innerHTML = mainWindow.calculatorNumber.join("")
+    })
+
 
 // adds keyboard controls
 document.addEventListener("keydown", keypressed);

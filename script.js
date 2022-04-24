@@ -78,7 +78,7 @@ document.querySelector("#reset").addEventListener('click', function(){
 
 
 // adds keyboard controls
-document.addEventListener("keydown", keypressed);
+document.addEventListener("keypress", keypressed);
 function keypressed(event){
 if (event.key >= 0 && event.key <= 9 || event.key == ".") {
     console.log(event.key)
@@ -262,7 +262,7 @@ document.querySelector("#powerOf").addEventListener('click', function(){
     //performs expotentiation calculation again if user clicks the divide button again instead of the equal button 
     if (typeof mainWindow.previousNumber == "number" && mainWindow.calculatorNumber.length !== 0){
         mainWindow.newNumber = parseFloat(mainWindow.calculatorNumber.join("").toString())
-        mainWindow.previousNumber = math.pow(mainWindow.previousNumber, mainWindow.newNumber)
+        mainWindow.previousNumber = Math.pow(mainWindow.previousNumber, mainWindow.newNumber)
         mainWindow.newNumber = []
         mainWindow.calculatorNumber = []
         mainWindow.operation = "expotentiation"

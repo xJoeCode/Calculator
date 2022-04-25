@@ -11,7 +11,8 @@ Features:
 
 
 Bugs Faced:
-if the user double clicks the equals or math operation buttons twice.
+- if the user double clicks the equals or math operation buttons twice.
+- 0.1 + 0.2 != 0.3
 
 
 

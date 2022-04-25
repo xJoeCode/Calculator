@@ -1,4 +1,4 @@
-https://xjoecode.github.io/Calculator/
+Live Preview: https://xjoecode.github.io/Calculator/
 
 This is my version of the Calculator project from the Odin Project. https://www.theodinproject.com/lessons/foundations-calculator
 

@@ -94,6 +94,7 @@ if (event.key >= 0 && event.key <= 9 || event.key == ".") {
                     } else if (event.key == "Enter"){
                         equals()
                     }
+}
         
     
     
@@ -102,9 +103,6 @@ const numberButtons = document.querySelectorAll(".numberbuttons")
 numberButtons.forEach(button =>
     button.addEventListener('click', function(){
         // resets the calculator window if a calculation has been performed
-        document.addEventListener('keypress', e=>{
-            e.preventDefault()
-        })
         if (mainWindow.operation == "calculated"){
             console.log("resetnumbers")
             mainWindow.previousNumber = []
@@ -128,7 +126,6 @@ numberButtons.forEach(button =>
 
 
 document.querySelector("#add").addEventListener('click', addition)
-
 function addition(){
     //performs addition calculation again if user clicks the plus button again instead of the equal button 
     if (typeof mainWindow.previousNumber == "number" && mainWindow.calculatorNumber.length !== 0){
@@ -386,5 +383,4 @@ if (mainWindow.operation == "add" && mainWindow.calculatorNumber.length !== 0){
                             mainWindow.calculatorNumber = []
                             
                             }
-}
 }

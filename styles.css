@@ -4,14 +4,24 @@ button{
     margin: 1px;
     font-size: 20px;
     outline: none;
-    
+    cursor: pointer;
+    border: 1px solid lightgray;
+    transition: 0.1s;
+    border-radius: 5px;
+}
+
+button:hover{
+    background-color: rgb(202, 202, 202);
 }
 
 .buttons{
-    display: flex;
-    flex-wrap: wrap;
-    align-content: flex-start;
     width: 800px;
+    display: grid;
+    gap: 0.2rem;
+    justify-content: center;
+    grid-template-columns:repeat(auto-fit, minmax(150px, 1fr)) ;
+    grid-template-rows: repeat(auto-fit, 1fr);
+    
     
     
 }
@@ -30,11 +40,12 @@ body {
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    background-color: rgb(233, 233, 233);
+    background-color: rgb(224, 224, 224);
     font-family:Georgia, 'Times New Roman', Times, serif
 }
 
 h1{
     font-family:'Courier New', Courier, monospace;
-    margin-top: 50px
+    margin-top: 50px;
+    text-align: center;
 }

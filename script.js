@@ -100,9 +100,7 @@ function keypressed(event){
                     division()
                     } else if (event.key == "Enter"){
                         equals()
-                    } else if (mainWindow.operation == "calculated"){
-
-                    }
+                    } 
 }
 
 

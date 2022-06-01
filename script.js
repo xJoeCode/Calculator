@@ -80,7 +80,14 @@ document.querySelector("#reset").addEventListener('click', function(){
 // adds keyboard controls
 document.addEventListener("keypress", keypressed);
 function keypressed(event){
-if (event.key >= 0 && event.key <= 9 || event.key == ".") {
+ if((event.key >= 0 && event.key <= 9 || event.key == ".") && mainWindow.operation == "calculated"){
+    console.log("resetnumbersOnKeypress")
+    mainWindow.calculatorNumber.push(event.key);
+    document.getElementById("calculatorWindow").innerHTML = mainWindow.calculatorNumber.join("")
+    mainWindow.previousNumber = []
+    mainWindow.newNumber = []
+    mainWindow.operation = "nil"
+ } else if (event.key >= 0 && event.key <= 9 || event.key == ".") {
     mainWindow.calculatorNumber.push(event.key);
     document.getElementById("calculatorWindow").innerHTML = mainWindow.calculatorNumber.join("")
     } else if (event.key == "+") {
@@ -93,8 +100,12 @@ if (event.key >= 0 && event.key <= 9 || event.key == ".") {
                     division()
                     } else if (event.key == "Enter"){
                         equals()
+                    } else if (mainWindow.operation == "calculated"){
+
                     }
 }
+
+
         
     
     
@@ -104,25 +115,15 @@ numberButtons.forEach(button =>
     button.addEventListener('click', function(){
         // resets the calculator window if a calculation has been performed
         if (mainWindow.operation == "calculated"){
-            console.log("resetnumbers")
+            console.log("resetNumbersOnButtonPress")
             mainWindow.previousNumber = []
             mainWindow.newNumber = []
             mainWindow.operation = "nil"
             }
         })
-        )
+    )
 
-        numberButtons.forEach(button =>
-        button.addEventListener('keypress', function(){
-            // resets the calculator window if a calculation has been performed
-            if (mainWindow.operation == "calculated"){
-                console.log("resetnumbers")
-                mainWindow.previousNumber = []
-                mainWindow.newNumber = []
-                mainWindow.operation = "nil"
-                }
-            })
-            )
+
 
 
 document.querySelector("#add").addEventListener('click', addition)
@@ -137,14 +138,14 @@ function addition(){
         document.getElementById("calculatorWindow").innerHTML = mainWindow.previousNumber
 
     } else if (typeof mainWindow.calculatorNumber == "object" && mainWindow.calculatorNumber.length !== 0){
-    //if this is the first number of the addition operation
-    console.log("no second number");
-    mainWindow.operation = "add"
-    mainWindow.previousNumber = parseFloat(mainWindow.calculatorNumber.join(""))
-    console.log(mainWindow.calculatorNumber.join("").toString())
-    mainWindow.newNumber = []
-    mainWindow.calculatorNumber = []
-    document.getElementById("calculatorWindow").innerHTML = mainWindow.previousNumber
+        //if this is the first number of the addition operation
+        console.log("no second number");
+        mainWindow.operation = "add"
+        mainWindow.previousNumber = parseFloat(mainWindow.calculatorNumber.join(""))
+        console.log(mainWindow.calculatorNumber.join("").toString())
+        mainWindow.newNumber = []
+        mainWindow.calculatorNumber = []
+        document.getElementById("calculatorWindow").innerHTML = mainWindow.previousNumber
 
         } else if(mainWindow.previousNumber.length == 0) {
             //if the addition button is clicked twice without performing initial calculation

@@ -63,15 +63,25 @@ document.querySelector("#buttonDot").addEventListener('click', function(){
     document.getElementById("calculatorWindow").innerHTML = mainWindow.calculatorNumber.join("")
     }})
 
-document.querySelector("#backSpace").addEventListener('click', function(){
-    mainWindow.calculatorNumber.pop();
+document.querySelector("#backSpace").addEventListener('click', backspace)
+
+function backspace(){
+if (typeof mainWindow.previousNumber == "number" || typeof mainWindow.previousNumber == "string"){
+    mainWindow.previousNumber = Array.from(String(mainWindow.previousNumber))
+    mainWindow.previousNumber.pop()
+    mainWindow.previousNumber = (mainWindow.previousNumber.join(""))
+    console.log(mainWindow.previousNumber)
+    document.getElementById("calculatorWindow").innerHTML =  mainWindow.previousNumber
+}else{ mainWindow.calculatorNumber.pop()
+    console.log(typeof mainWindow.previousNumber + "popped")
     document.getElementById("calculatorWindow").innerHTML = mainWindow.calculatorNumber.join("")
-    })
+    }
+}
 
 document.querySelector("#reset").addEventListener('click', function(){
     mainWindow.previousNumber =[]
     mainWindow.newNumber = []
-    mainWindow.calculatorNumber = []
+    mainWindow.calculatorNumber = [0]
     mainWindow.operation = "nil"
     document.getElementById("calculatorWindow").innerHTML = mainWindow.calculatorNumber.join("")
     })
@@ -100,7 +110,7 @@ function keypressed(event){
                     division()
                     } else if (event.key == "Enter"){
                         equals()
-                    } 
+                    }
 }
 
 
@@ -127,7 +137,8 @@ numberButtons.forEach(button =>
 document.querySelector("#add").addEventListener('click', addition)
 function addition(){
     //performs addition calculation again if user clicks the plus button again instead of the equal button 
-    if (typeof mainWindow.previousNumber == "number" && mainWindow.calculatorNumber.length !== 0){
+    if ((typeof mainWindow.previousNumber == "number" || typeof mainWindow.previousNumber == "string") && mainWindow.calculatorNumber.length !== 0){
+        mainWindow.previousNumber = parseFloat(mainWindow.previousNumber)
         mainWindow.newNumber = parseFloat(mainWindow.calculatorNumber.join(""))
         mainWindow.previousNumber = parseFloat((mainWindow.previousNumber + mainWindow.newNumber).toFixed(10))
         mainWindow.newNumber = []
@@ -164,7 +175,8 @@ document.querySelector("#subtract").addEventListener('click', subtraction)
 
 function subtraction(){
     //performs subtraction calculation again if user clicks the subtract button again instead of the equal button 
-    if (typeof mainWindow.previousNumber == "number" && mainWindow.calculatorNumber.length !== 0){
+    if ((typeof mainWindow.previousNumber == "number" || typeof mainWindow.previousNumber == "string") && mainWindow.calculatorNumber.length !== 0){
+        mainWindow.previousNumber = parseFloat(mainWindow.previousNumber)
         mainWindow.newNumber = parseFloat(mainWindow.calculatorNumber.join(""))
         mainWindow.previousNumber = parseFloat((mainWindow.previousNumber - mainWindow.newNumber).toFixed(10));
         mainWindow.newNumber = []
@@ -201,7 +213,8 @@ document.querySelector("#multiply").addEventListener('click', multiplication)
 
 function multiplication(){
 //performs multiplication calculation again if user clicks the multiply button again instead of the equal button 
-if (typeof mainWindow.previousNumber == "number" && mainWindow.calculatorNumber.length !== 0){
+if ((typeof mainWindow.previousNumber == "number" || typeof mainWindow.previousNumber == "string") && mainWindow.calculatorNumber.length !== 0){
+    mainWindow.previousNumber = parseFloat(mainWindow.previousNumber)
     mainWindow.newNumber = parseFloat(mainWindow.calculatorNumber.join(""))
     mainWindow.previousNumber = parseFloat((mainWindow.previousNumber * mainWindow.newNumber).toFixed(10));
     mainWindow.newNumber = []
@@ -235,7 +248,8 @@ document.querySelector("#divide").addEventListener('click', division)
 
 function division(){
 //performs division calculation again if user clicks the divide button again instead of the equal button 
-if (typeof mainWindow.previousNumber == "number" && mainWindow.calculatorNumber.length !== 0){
+if ((typeof mainWindow.previousNumber == "number" || typeof mainWindow.previousNumber == "string") && mainWindow.calculatorNumber.length !== 0){
+    mainWindow.previousNumber = parseFloat(mainWindow.previousNumber)
     mainWindow.newNumber = parseFloat(mainWindow.calculatorNumber.join(""));
     mainWindow.previousNumber = parseFloat((mainWindow.previousNumber / mainWindow.newNumber).toFixed(10));
     mainWindow.newNumber = []
@@ -266,7 +280,8 @@ document.getElementById("calculatorWindow").innerHTML = mainWindow.previousNumbe
 
 document.querySelector("#powerOf").addEventListener('click', function(){
     //performs expotentiation calculation again if user clicks the divide button again instead of the equal button 
-    if (typeof mainWindow.previousNumber == "number" && mainWindow.calculatorNumber.length !== 0){
+    if ((typeof mainWindow.previousNumber == "number" || typeof mainWindow.previousNumber == "string") && mainWindow.calculatorNumber.length !== 0){
+        mainWindow.previousNumber = parseFloat(mainWindow.previousNumber)
         mainWindow.newNumber = parseFloat(mainWindow.calculatorNumber.join(""))
         mainWindow.previousNumber = parseFloat(Math.pow(mainWindow.previousNumber, mainWindow.newNumber).toFixed(10));
         mainWindow.newNumber = []
@@ -275,12 +290,12 @@ document.querySelector("#powerOf").addEventListener('click', function(){
         document.getElementById("calculatorWindow").innerHTML = mainWindow.previousNumber
     
     } else if (typeof mainWindow.calculatorNumber == "object" && mainWindow.calculatorNumber.length !== 0){
-    //if this is the first number of the expotentiation operation
-    mainWindow.operation = "expotentiation"
-    mainWindow.previousNumber = parseFloat(mainWindow.calculatorNumber.join(""))
-    mainWindow.newNumber = []
-    mainWindow.calculatorNumber = []
-    document.getElementById("calculatorWindow").innerHTML = mainWindow.previousNumber
+        //if this is the first number of the expotentiation operation
+        mainWindow.operation = "expotentiation"
+        mainWindow.previousNumber = parseFloat(mainWindow.calculatorNumber.join(""))
+        mainWindow.newNumber = []
+        mainWindow.calculatorNumber = []
+        document.getElementById("calculatorWindow").innerHTML = mainWindow.previousNumber
     
         } else if(mainWindow.previousNumber.length == 0) {
             //if the powerOf button is clicked twice without performing initial calculation
@@ -303,11 +318,19 @@ document.querySelector("#squareRoot").addEventListener('click', function(){
         document.getElementById("calculatorWindow").innerHTML = mainWindow.previousNumber
         //auto performs squareRoot calculation if button is pressed multiple times
     } else if (mainWindow.calculatorNumber.length == 0){
+        console.log("squarerooted2")
         mainWindow.previousNumber = Math.sqrt(mainWindow.previousNumber)
         document.getElementById("calculatorWindow").innerHTML = mainWindow.previousNumber
         mainWindow.operation = "calculated"
-    }
-        })
+    } else if (typeof mainWindow.previousNumber == "number" || typeof mainWindow.previousNumber == "string"){
+        console.log("squarerooted")
+        mainWindow.previousNumber = Math.sqrt(parseFloat(mainWindow.previousNumber.join("")))
+        mainWindow.calculatorNumber = []
+        mainWindow.operation = "calculated"
+        document.getElementById("calculatorWindow").innerHTML = mainWindow.previousNumber
+        }
+    
+    })
 
 document.querySelector("#equals").addEventListener('click', equals)
 
@@ -316,7 +339,7 @@ function equals(){
 if (mainWindow.operation == "add" && mainWindow.calculatorNumber.length !== 0){
     mainWindow.newNumber = parseFloat(mainWindow.calculatorNumber.join(""))
     console.log("new number is " + mainWindow.newNumber)
-    mainWindow.previousNumber = parseFloat((mainWindow.previousNumber + mainWindow.newNumber).toFixed(10))
+    mainWindow.previousNumber = parseFloat((parseFloat(mainWindow.previousNumber) + mainWindow.newNumber).toFixed(10))
     document.getElementById("calculatorWindow").innerHTML = mainWindow.previousNumber
     console.log("calculated number is " + mainWindow.previousNumber)
     mainWindow.operation = "calculated"
@@ -327,7 +350,7 @@ if (mainWindow.operation == "add" && mainWindow.calculatorNumber.length !== 0){
 //performs subtraction calculation if someone presses the equal button
     } else if (mainWindow.operation == "subtraction" && mainWindow.calculatorNumber.length !== 0){
         mainWindow.newNumber = parseFloat(mainWindow.calculatorNumber.join(""))
-        mainWindow.previousNumber = parseFloat((mainWindow.previousNumber - mainWindow.newNumber).toFixed(10))
+        mainWindow.previousNumber = parseFloat((parseFloat(mainWindow.previousNumber) - mainWindow.newNumber).toFixed(10))
         document.getElementById("calculatorWindow").innerHTML = mainWindow.previousNumber
         mainWindow.operation = "calculated"
         mainWindow.newNumber = []
@@ -337,7 +360,7 @@ if (mainWindow.operation == "add" && mainWindow.calculatorNumber.length !== 0){
         //performs multiplication calculation if someone presses the equal button
         } else if (mainWindow.operation == "multiplication" && mainWindow.calculatorNumber.length !== 0){
             mainWindow.newNumber = parseFloat(mainWindow.calculatorNumber.join(""))
-            mainWindow.previousNumber = parseFloat((mainWindow.previousNumber * mainWindow.newNumber).toFixed(10))
+            mainWindow.previousNumber = parseFloat((parseFloat(mainWindow.previousNumber) * mainWindow.newNumber).toFixed(10))
             document.getElementById("calculatorWindow").innerHTML = mainWindow.previousNumber
             mainWindow.operation = "calculated"
             mainWindow.newNumber = []
@@ -347,7 +370,7 @@ if (mainWindow.operation == "add" && mainWindow.calculatorNumber.length !== 0){
             //performs division calculation if someone presses the equal button
             } else if (mainWindow.operation == "division" && mainWindow.calculatorNumber.length !== 0){
                 mainWindow.newNumber = parseFloat(mainWindow.calculatorNumber.join(""))
-                mainWindow.previousNumber = parseFloat((mainWindow.previousNumber / mainWindow.newNumber).toFixed(10))
+                mainWindow.previousNumber = parseFloat((parseFloat(mainWindow.previousNumber) / mainWindow.newNumber).toFixed(10))
                 document.getElementById("calculatorWindow").innerHTML = mainWindow.previousNumber
                 mainWindow.operation = "calculated"
                 mainWindow.newNumber = []
@@ -357,7 +380,7 @@ if (mainWindow.operation == "add" && mainWindow.calculatorNumber.length !== 0){
                 //performs expotentiation calculation if someone presses the equal button
                 } else if (mainWindow.operation == "expotentiation" && mainWindow.calculatorNumber.length !== 0){
                     mainWindow.newNumber = parseFloat(mainWindow.calculatorNumber.join(""))
-                    mainWindow.previousNumber =parseFloat((Math.pow(mainWindow.previousNumber, mainWindow.newNumber)).toFixed(10))
+                    mainWindow.previousNumber =parseFloat((Math.pow(parseFloat(mainWindow.previousNumber), mainWindow.newNumber)).toFixed(10))
                     document.getElementById("calculatorWindow").innerHTML = mainWindow.previousNumber
                     mainWindow.operation = "calculated"
                     mainWindow.newNumber = []

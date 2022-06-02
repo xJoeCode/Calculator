@@ -90,30 +90,38 @@ document.querySelector("#reset").addEventListener('click', function(){
 // adds keyboard controls
 document.addEventListener("keypress", keypressed);
 function keypressed(event){
-event.target.blur()
- if((event.key >= 0 && event.key <= 9 || event.key == ".") && mainWindow.operation == "calculated"){
-    console.log("resetnumbersOnKeypress")
-    mainWindow.calculatorNumber.push(event.key);
-    document.getElementById("calculatorWindow").innerHTML = mainWindow.calculatorNumber.join("")
-    mainWindow.previousNumber = []
-    mainWindow.newNumber = []
-    mainWindow.operation = "nil"
- } else if (event.key >= 0 && event.key <= 9 || event.key == ".") {
-    mainWindow.calculatorNumber.push(event.key);
-    document.getElementById("calculatorWindow").innerHTML = mainWindow.calculatorNumber.join("")
-    } else if (event.key == "+") {
-        addition()
-        } else if (event.key == "-"){
-            subtraction()
-            } else if (event.key == "*"){
-                multiplication()
-                } else if (event.key == "/"){
-                    division()
-                    } else if (event.key == "Enter"){
-                        equals()
-                        } else if (event.key == "BackSpace"){
-                            backspace()
-                        }
+    const key = event.key
+    console.log(key)
+    event.target.blur()
+    if((event.key >= 0 && event.key <= 9 || event.key == ".") && mainWindow.operation == "calculated"){
+        if(event.key==="." && mainWindow.calculatorNumber.includes(".")){
+            return
+        } else{
+        console.log("resetnumbersOnKeypress")
+        mainWindow.calculatorNumber.push(event.key);
+        document.getElementById("calculatorWindow").innerHTML = mainWindow.calculatorNumber.join("")
+        mainWindow.previousNumber = []
+        mainWindow.newNumber = []
+        mainWindow.operation = "nil"}
+    } else if (event.key >= 0 && event.key <= 9 || event.key == ".") {
+        if(event.key==="." && mainWindow.calculatorNumber.includes(".")){
+            return
+        } else {
+        mainWindow.calculatorNumber.push(event.key);
+        document.getElementById("calculatorWindow").innerHTML = mainWindow.calculatorNumber.join("")
+        }} else if (event.key == "+") {
+            addition()
+            } else if (event.key == "-"){
+                subtraction()
+                } else if (event.key == "*"){
+                    multiplication()
+                    } else if (event.key == "/"){
+                        division()
+                        } else if (event.key == "Enter"){
+                            equals()
+                            } else if (event.key == "BackSpace"){
+                                backspace()
+                            }
 }
 
 

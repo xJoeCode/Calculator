@@ -68,11 +68,11 @@ document.querySelector("#backSpace").addEventListener('click', backspace)
 function backspace(){
 if (typeof mainWindow.previousNumber == "number" || typeof mainWindow.previousNumber == "string"){
     mainWindow.previousNumber = Array.from(String(mainWindow.previousNumber))
+    console.log(mainWindow.previousNumber)
     mainWindow.previousNumber.pop()
     mainWindow.previousNumber = (mainWindow.previousNumber.join(""))
-    console.log(mainWindow.previousNumber)
     document.getElementById("calculatorWindow").innerHTML =  mainWindow.previousNumber
-}else{ mainWindow.calculatorNumber.pop()
+} else { mainWindow.calculatorNumber.pop()
     console.log(typeof mainWindow.previousNumber + "popped")
     document.getElementById("calculatorWindow").innerHTML = mainWindow.calculatorNumber.join("")
     }
@@ -90,6 +90,7 @@ document.querySelector("#reset").addEventListener('click', function(){
 // adds keyboard controls
 document.addEventListener("keypress", keypressed);
 function keypressed(event){
+    event.target.blur()
  if((event.key >= 0 && event.key <= 9 || event.key == ".") && mainWindow.operation == "calculated"){
     console.log("resetnumbersOnKeypress")
     mainWindow.calculatorNumber.push(event.key);

@@ -57,7 +57,7 @@ document.querySelector("#buttonNine").addEventListener('click', function(){
 
 document.querySelector("#buttonDot").addEventListener('click', function(){
     if (mainWindow.calculatorNumber.includes(".")){
-        
+        return
     } else {
     mainWindow.calculatorNumber.push('.');
     document.getElementById("calculatorWindow").innerHTML = mainWindow.calculatorNumber.join("")
@@ -81,16 +81,16 @@ if (typeof mainWindow.previousNumber == "number" || typeof mainWindow.previousNu
 document.querySelector("#reset").addEventListener('click', function(){
     mainWindow.previousNumber =[]
     mainWindow.newNumber = []
-    mainWindow.calculatorNumber = [0]
+    mainWindow.calculatorNumber = []
     mainWindow.operation = "nil"
-    document.getElementById("calculatorWindow").innerHTML = mainWindow.calculatorNumber.join("")
+    document.getElementById("calculatorWindow").innerHTML = 0
     })
 
 
 // adds keyboard controls
 document.addEventListener("keypress", keypressed);
 function keypressed(event){
-    event.target.blur()
+event.target.blur()
  if((event.key >= 0 && event.key <= 9 || event.key == ".") && mainWindow.operation == "calculated"){
     console.log("resetnumbersOnKeypress")
     mainWindow.calculatorNumber.push(event.key);
@@ -111,7 +111,9 @@ function keypressed(event){
                     division()
                     } else if (event.key == "Enter"){
                         equals()
-                    }
+                        } else if (event.key == "BackSpace"){
+                            backspace()
+                        }
 }
 
 

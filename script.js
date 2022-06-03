@@ -1,5 +1,5 @@
  let mainWindow = {
-    previousNumber :[],
+    previousNumber :[0],
     newNumber:[],
     calculatorNumber: [],
     operation: "nil"
@@ -85,7 +85,7 @@ if (typeof mainWindow.previousNumber == "number" || typeof mainWindow.previousNu
 
 //resets the calculator window on pressing the reset button
 document.querySelector("#reset").addEventListener('click', function(){
-    mainWindow.previousNumber =[]
+    mainWindow.previousNumber =[0]
     mainWindow.newNumber = []
     mainWindow.calculatorNumber = []
     mainWindow.operation = "nil"

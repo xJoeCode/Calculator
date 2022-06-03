@@ -66,18 +66,24 @@ document.querySelector("#buttonDot").addEventListener('click', function(){
 document.querySelector("#backSpace").addEventListener('click', backspace)
 
 function backspace(){
+    //removes the last digit if a calculation has been performed.
 if (typeof mainWindow.previousNumber == "number" || typeof mainWindow.previousNumber == "string"){
     mainWindow.previousNumber = Array.from(String(mainWindow.previousNumber))
     console.log(mainWindow.previousNumber)
     mainWindow.previousNumber.pop()
-    mainWindow.previousNumber = (mainWindow.previousNumber.join(""))
-    document.getElementById("calculatorWindow").innerHTML =  mainWindow.previousNumber
-} else { mainWindow.calculatorNumber.pop()
+    mainWindow.calculatorNumber = mainWindow.previousNumber
+    mainWindow.previousNumber = []
+    document.getElementById("calculatorWindow").innerHTML =  mainWindow.calculatorNumber.join("")
+    mainWindow.operation = "nil"
+} else { 
+    //removes last digit if no calculations has been performed yet.
+    mainWindow.calculatorNumber.pop()
     console.log(typeof mainWindow.previousNumber + "popped")
     document.getElementById("calculatorWindow").innerHTML = mainWindow.calculatorNumber.join("")
     }
 }
 
+//resets the calculator window on pressing the reset button
 document.querySelector("#reset").addEventListener('click', function(){
     mainWindow.previousNumber =[]
     mainWindow.newNumber = []
@@ -95,34 +101,36 @@ function keypressed(event){
     event.target.blur()
     if((event.key >= 0 && event.key <= 9 || event.key == ".") && mainWindow.operation == "calculated"){
         if(event.key==="." && mainWindow.calculatorNumber.includes(".")){
-            return
-        } else{
-        console.log("resetnumbersOnKeypress")
-        mainWindow.calculatorNumber.push(event.key);
-        document.getElementById("calculatorWindow").innerHTML = mainWindow.calculatorNumber.join("")
-        mainWindow.previousNumber = []
-        mainWindow.newNumber = []
-        mainWindow.operation = "nil"}
+            //prevents user from adding multiple decimal points.
+            return 
+        } else {
+            //automatically resets calculator window after a calculation has been performed.
+            console.log("resetnumbersOnKeypress")
+            mainWindow.calculatorNumber.push(event.key);
+            document.getElementById("calculatorWindow").innerHTML = mainWindow.calculatorNumber.join("")
+            mainWindow.previousNumber = []
+            mainWindow.newNumber = []
+            mainWindow.operation = "nil"}
     } else if (event.key >= 0 && event.key <= 9 || event.key == ".") {
         if(event.key==="." && mainWindow.calculatorNumber.includes(".")){
             return
         } else {
-        mainWindow.calculatorNumber.push(event.key);
-        document.getElementById("calculatorWindow").innerHTML = mainWindow.calculatorNumber.join("")
-        }} else if (event.key == "+") {
-            addition()
-            } else if (event.key == "-"){
-                subtraction()
-                } else if (event.key == "*"){
-                    multiplication()
-                    } else if (event.key == "/"){
-                        division()
-                        } else if (event.key == "Enter"){
-                            equals()
-                            } else if (event.key == "BackSpace"){
-                                backspace()
-                            }
-}
+            mainWindow.calculatorNumber.push(event.key);
+            document.getElementById("calculatorWindow").innerHTML = mainWindow.calculatorNumber.join("")
+            }} else if (event.key == "+") {
+                addition()
+                } else if (event.key == "-"){
+                    subtraction()
+                    } else if (event.key == "*"){
+                        multiplication()
+                        } else if (event.key == "/"){
+                            division()
+                            } else if (event.key == "Enter"){
+                                equals()
+                                } else if (event.key == "BackSpace"){
+                                    backspace()
+                                }
+    }
 
 
         
@@ -132,7 +140,7 @@ function keypressed(event){
 const numberButtons = document.querySelectorAll(".numberbuttons")
 numberButtons.forEach(button =>
     button.addEventListener('click', function(){
-        // resets the calculator window if a calculation has been performed
+        // resets the calculator window on button press after a calculation has been performed
         if (mainWindow.operation == "calculated"){
             console.log("resetNumbersOnButtonPress")
             mainWindow.previousNumber = []

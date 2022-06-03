@@ -267,34 +267,39 @@ document.querySelector("#divide").addEventListener('click', division)
 
 function division(){
 //performs division calculation again if user clicks the divide button again instead of the equal button 
-if ((typeof mainWindow.previousNumber == "number" || typeof mainWindow.previousNumber == "string") && mainWindow.calculatorNumber.length !== 0){
-    mainWindow.previousNumber = parseFloat(mainWindow.previousNumber)
-    mainWindow.newNumber = parseFloat(mainWindow.calculatorNumber.join(""));
-    mainWindow.previousNumber = parseFloat((mainWindow.previousNumber / mainWindow.newNumber).toFixed(10));
+if((typeof mainWindow.previousNumber == "number" || typeof mainWindow.previousNumber == "string") && mainWindow.calculatorNumber == `0`){
+    console.log(mainWindow.calculatorNumber)
+    document.getElementById("calculatorWindow").innerHTML = "Cannot Divide By Zero"
+    mainWindow.operation = "calculated"
     mainWindow.newNumber = []
     mainWindow.calculatorNumber = []
-    mainWindow.operation = "division"
-    document.getElementById("calculatorWindow").innerHTML = mainWindow.previousNumber
-
-} else if (typeof mainWindow.calculatorNumber == "object" && mainWindow.calculatorNumber.length !== 0){
-//if this is the first number of the division operation
-mainWindow.operation = "division"
-mainWindow.previousNumber = parseFloat(mainWindow.calculatorNumber.join(""))
-mainWindow.newNumber = []
-mainWindow.calculatorNumber = []
-document.getElementById("calculatorWindow").innerHTML = mainWindow.previousNumber
-
-    } else if(mainWindow.previousNumber.length == 0) {
-        //if the division button is clicked twice without performing initial calculation
+    } else if ((typeof mainWindow.previousNumber == "number" || typeof mainWindow.previousNumber == "string") && mainWindow.calculatorNumber.length !== 0){
+        mainWindow.previousNumber = parseFloat(mainWindow.previousNumber)
+        mainWindow.newNumber = parseFloat(mainWindow.calculatorNumber.join(""));
+        mainWindow.previousNumber = parseFloat((mainWindow.previousNumber / mainWindow.newNumber).toFixed(10));
+        mainWindow.newNumber = []
+        mainWindow.calculatorNumber = []
         mainWindow.operation = "division"
-        document.getElementById("calculatorWindow").innerHTML = mainWindow.calculatorNumber
-
-        } else {
-            // if the division button is clicked twice after performing an initial calculation
+        document.getElementById("calculatorWindow").innerHTML = mainWindow.previousNumber
+            } else if (typeof mainWindow.calculatorNumber == "object" && mainWindow.calculatorNumber.length !== 0){
+            //if this is the first number of the division operation
             mainWindow.operation = "division"
+            mainWindow.previousNumber = parseFloat(mainWindow.calculatorNumber.join(""))
+            mainWindow.newNumber = []
+            mainWindow.calculatorNumber = []
             document.getElementById("calculatorWindow").innerHTML = mainWindow.previousNumber
-        }
-}
+
+                } else if(mainWindow.previousNumber.length == 0) {
+                    //if the division button is clicked twice without performing initial calculation
+                    mainWindow.operation = "division"
+                    document.getElementById("calculatorWindow").innerHTML = mainWindow.calculatorNumber
+
+                    } else {
+                        // if the division button is clicked twice after performing an initial calculation
+                        mainWindow.operation = "division"
+                        document.getElementById("calculatorWindow").innerHTML = mainWindow.previousNumber
+                    }
+            }
     
 
 document.querySelector("#powerOf").addEventListener('click', function(){
@@ -388,12 +393,19 @@ if (mainWindow.operation == "add" && mainWindow.calculatorNumber.length !== 0){
 
             //performs division calculation if someone presses the equal button
             } else if (mainWindow.operation == "division" && mainWindow.calculatorNumber.length !== 0){
-                mainWindow.newNumber = parseFloat(mainWindow.calculatorNumber.join(""))
-                mainWindow.previousNumber = parseFloat((parseFloat(mainWindow.previousNumber) / mainWindow.newNumber).toFixed(10))
-                document.getElementById("calculatorWindow").innerHTML = mainWindow.previousNumber
-                mainWindow.operation = "calculated"
-                mainWindow.newNumber = []
-                mainWindow.calculatorNumber = []
+                if(mainWindow.calculatorNumber == `0`){
+                    document.getElementById("calculatorWindow").innerHTML = "Cannot Divide By Zero"
+                    mainWindow.operation = "calculated"
+                    mainWindow.newNumber = []
+                    mainWindow.calculatorNumber = []
+                        } else {
+                        mainWindow.newNumber = parseFloat(mainWindow.calculatorNumber.join(""))
+                        mainWindow.previousNumber = parseFloat((parseFloat(mainWindow.previousNumber) / mainWindow.newNumber).toFixed(10))
+                        document.getElementById("calculatorWindow").innerHTML = mainWindow.previousNumber
+                        mainWindow.operation = "calculated"
+                        mainWindow.newNumber = []
+                        mainWindow.calculatorNumber = []
+                        }
                 
 
                 //performs expotentiation calculation if someone presses the equal button
